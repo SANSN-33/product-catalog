@@ -1267,9 +1267,9 @@ function openModal(p) {
   document.body.style.overflow = 'hidden';
 
   // Modal heart button click handler
-  const modalHeartBtn = document.querySelector('.modal-heart-btn');
-  if (modalHeartBtn) {
-    modalHeartBtn.addEventListener('click', function(e) {
+  const mHeartBtn = document.querySelector('.modal-heart-btn');
+  if (mHeartBtn) {
+    mHeartBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       const sku = this.getAttribute('data-sku');
       const nowLiked = toggleHeart(sku);
