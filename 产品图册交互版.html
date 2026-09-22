@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>河南有膜有样 · 产品图册</title>
+<style>
+  :root {
+    --bg: #F6F8FC;
+    --surface: #FFFFFF;
+    --border: #D9DEE7;
+    --text: #1A1F2E;
+    --text-secondary: #3D4A5C;
+    --text-muted: #6B7689;
+    --primary: #0969DA;
+    --primary-soft: #EAF2FC;
+    --primary-strong: #0855B8;
+    --success: #1A7F37;
+    --success-soft: #E6F4EA;
+    --warning: #BF6900;
+    --warning-soft: #FFF4E5;
+    --danger: #D1242A;
+    --danger-soft: #FCE8E9;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --font-sans: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #0969DA 0%, #0855B8 100%);
+    color: #fff;
+    padding: 14px 16px 12px;
+    box-shadow: 0 2px 12px rgba(9,105,218,0.2);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .header-brand {
+    font-size: 12px;
+    letter-spacing: 3px;
+    opacity: 0.7;
+  }
+  .header-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .header-version {
+    font-size: 11px;
+    opacity: 0.6;
+  }
+
+  /* ===== Search Bar ===== */
+  .search-bar {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    background: rgba(255,255,255,0.95);
+    color: var(--text);
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    opacity: 0.4;
+  }
+
+  /* ===== Filter Tabs ===== */
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+
+  .filter-tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filter-tab.active {
+    background: #fff;
+    color: var(--primary);
+    border-color: #fff;
+    font-weight: 600;
+  }
+  .filter-tab .count {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-left: 2px;
+  }
+
+  /* ===== Sub Filter (status) ===== */
+  .sub-filter {
+    display: flex;
+    gap: 6px;
+    padding: 8px 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .sub-filter::-webkit-scrollbar { display: none; }
+
+  .sub-tab {
+    flex-shrink: 0;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    background: var(--bg);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .sub-tab.active {
+    background: var(--primary-soft);
+    color: var(--primary);
+    border-color: var(--primary);
+    font-weight: 600;
+  }
+  .sub-tab.featured.active {
+    background: linear-gradient(135deg, #FF6B6B, #FF4757);
+    color: #fff;
+    border-color: #FF4757;
+  }
+
+  /* ===== Product Grid ===== */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 12px 12px 40px;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+  }
+  .product-card:active {
+    transform: scale(0.98);
+  }
+
+  /* Card image */
+  .card-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card-img .placeholder {
+    font-size: 36px;
+    color: #d0d0d5;
+  }
+  .badge-row {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .badge {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .badge.self {
+    background: rgba(9,105,218,0.85);
+    color: #fff;
+  }
+  .badge.channel {
+    background: rgba(107,118,137,0.85);
+    color: #fff;
+  }
+  .badge.new {
+    background: rgba(9,105,218,0.85);
+    color: #fff;
+  }
+  .badge.on-sale {
+    background: rgba(26,127,55,0.85);
+    color: #fff;
+  }
+  .badge.clearance {
+    background: rgba(191,105,0,0.85);
+    color: #fff;
+  }
+  .badge.discontinued {
+    background: rgba(209,36,42,0.85);
+    color: #fff;
+  }
+  .badge.featured {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: linear-gradient(135deg, #FF6B6B, #FF4757);
+    color: #fff;
+    z-index: 2;
+  }
+
+  /* Card body */
+  .card-body {
+    padding: 8px 10px 10px;
+  }
+  .card-sku {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    font-family: "SF Mono", Monaco, monospace;
+    margin-bottom: 2px;
+  }
+  .card-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--danger);
+    margin-bottom: 4px;
+  }
+  .card-price .currency {
+    font-size: 11px;
+    font-weight: 500;
+    margin-right: 1px;
+  }
+  .card-model {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .card-category {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .card-colors {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    flex-shrink: 0;
+  }
+  .card-sellpoint {
+    font-size: 11px;
+    color: var(--text-secondary);
+    background: var(--primary-soft);
+    border-radius: 4px;
+    padding: 4px 6px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .card-display {
+    font-size: 11px;
+    color: var(--text-secondary);
+    background: var(--warning-soft);
+    border-radius: 4px;
+    padding: 4px 6px;
+    line-height: 1.5;
+  }
+
+  /* ===== No Results ===== */
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    display: none;
+  }
+  .no-results .icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  /* ===== Detail Modal ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .modal-overlay.show {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 1;
+  }
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    width: 100%;
+    max-width: 500px;
+    max-height: 92vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .modal-overlay.show .modal {
+    transform: translateY(0);
+  }
+  .modal-handle {
+    width: 36px;
+    height: 4px;
+    background: #D9DEE7;
+    border-radius: 2px;
+    margin: 8px auto;
+  }
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-muted);
+    cursor: pointer;
+    z-index: 1;
+  }
+  .modal-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .modal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .modal-img .placeholder {
+    font-size: 60px;
+    color: #d0d0d5;
+  }
+  .modal-badge-row {
+    position: absolute;
+    top: 50px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .modal-body {
+    padding: 16px 16px 32px;
+  }
+  .modal-sku {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: "SF Mono", Monaco, monospace;
+    margin-bottom: 4px;
+  }
+  .modal-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--danger);
+    margin-bottom: 12px;
+  }
+  .modal-price .currency {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 2px;
+  }
+
+  .modal-info {
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+  .modal-info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #F0F2F5;
+    font-size: 13px;
+  }
+  .modal-info-row:last-child {
+    border-bottom: none;
+  }
+  .modal-info-label {
+    flex-shrink: 0;
+    width: 72px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .modal-info-value {
+    flex: 1;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .modal-info-value strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .modal-sellpoint {
+    background: var(--primary-soft);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    margin-top: 10px;
+    border-left: 3px solid var(--primary);
+  }
+  .modal-sellpoint .label {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .modal-sellpoint .text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .modal-display {
+    background: var(--warning-soft);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    margin-top: 8px;
+    border-left: 3px solid var(--warning);
+  }
+  .modal-display .label {
+    font-size: 11px;
+    color: var(--warning);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .modal-display .text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 20px 16px 40px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .footer strong {
+    color: var(--text-secondary);
+  }
+
+  /* ===== Desktop ===== */
+  @media (min-width: 769px) {
+    body {
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0,0,0,0.06);
+      min-height: 100vh;
+    }
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 16px;
+    }
+    .modal-overlay {
+      align-items: center;
+    }
+    .modal {
+      border-radius: var(--radius-lg);
+      transform: translateY(40px);
+    }
+    .modal-overlay.show .modal {
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== Print ===== */
+  @media print {
+    .header, .sub-filter, .search-bar, .filter-tabs { display: none; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">河南有膜有样</div>
+      <div class="header-title">产品图册</div>
+    </div>
+    <div class="header-version">V1.0 · 2026.09</div>
+  </div>
+  <div class="search-bar">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+    <input type="text" class="search-input" id="searchInput" placeholder="搜索款号 / 型号 / 品类...">
+  </div>
+  <div class="filter-tabs" id="filterTabs">
+    <div class="filter-tab active" data-cat="all">全部 <span class="count" id="count-all">0</span></div>
+    <div class="filter-tab" data-cat="手机壳">📱 手机壳 <span class="count" id="count-phonecase">0</span></div>
+    <div class="filter-tab" data-cat="手机支架">📲 支架 <span class="count" id="count-stand">0</span></div>
+    <div class="filter-tab" data-cat="手机挂链">🔗 挂链 <span class="count" id="count-chain">0</span></div>
+    <div class="filter-tab" data-cat="3C配件">🔌 3C配件 <span class="count" id="count-3c">0</span></div>
+    <div class="filter-tab" data-cat="钢化膜">🛡️ 钢化膜 <span class="count" id="count-film">0</span></div>
+  </div>
+</div>
+
+<!-- ===== Sub Filter ===== -->
+<div class="sub-filter" id="subFilter">
+  <div class="sub-tab active" data-status="all">全部状态</div>
+  <div class="sub-tab featured" data-status="featured">🔥 主推款</div>
+  <div class="sub-tab" data-status="新品">🆕 新品</div>
+  <div class="sub-tab" data-status="在售">✅ 在售</div>
+  <div class="sub-tab" data-status="清仓">📦 清仓</div>
+  <div class="sub-tab" data-status="停产">❌ 停产</div>
+</div>
+
+<!-- ===== Product Grid ===== -->
+<div class="product-grid" id="productGrid"></div>
+
+<!-- ===== No Results ===== -->
+<div class="no-results" id="noResults">
+  <div class="icon">🔍</div>
+  <div>没有找到相关产品</div>
+</div>
+
+<!-- ===== Detail Modal ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-close" onclick="closeModal()">✕</div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <strong>河南有膜有样 · 产品部</strong><br>
+  产品信息以实际到货为准 · 如有疑问请联系产品部
+</div>
+
+<script>
+// ===== Product Data =====
+const products = [
+  {
+    sku: "K109151", price: "59", model: "iPhone 15 Pro",
+    category: "手机壳", subCategory: "磁吸款", type: "self", status: "新品", featured: true,
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"驼",hex:"#D4A574"},{name:"灰",hex:"#6B7280"}],
+    material: "PC硬壳 + 磨砂涂层，防指纹防刮花",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "磨砂质感不沾指纹，磁吸兼容MagSafe，0.8mm超薄不厚重。",
+    display: "建议放置于磁吸展位，搭配同系列支架做组合展示。"
+  },
+  {
+    sku: "K109152", price: "59", model: "iPhone 15 Pro Max",
+    category: "手机壳", subCategory: "磁吸款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"驼",hex:"#D4A574"}],
+    material: "PC硬壳 + 磨砂涂层，防指纹防刮花",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "磨砂质感不沾指纹，磁吸兼容MagSafe，超薄设计。",
+    display: "建议放置于磁吸展位，搭配同系列支架做组合展示。"
+  },
+  {
+    sku: "K209153-1", price: "79", model: "iPhone 15 Pro Max",
+    category: "手机壳", subCategory: "透明款", type: "channel", status: "在售",
+    colors: [{name:"透明",hex:"transparent"}],
+    material: "TPU软壳 + 抗黄变涂层，久用不发黄",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "高透不遮挡原机颜色，抗黄变材质持久如新，四角气囊防摔。",
+    display: "建议放于透明壳专区，搭配钢化膜做\"贴膜+壳\"组合推荐。"
+  },
+  {
+    sku: "K209153-2", price: "79", model: "iPhone 15 Pro",
+    category: "手机壳", subCategory: "透明款", type: "channel", status: "在售",
+    colors: [{name:"透明",hex:"transparent"}],
+    material: "TPU软壳 + 抗黄变涂层",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "高透抗黄变，四角气囊防摔保护。",
+    display: "建议放于透明壳专区，搭配钢化膜组合推荐。"
+  },
+  {
+    sku: "K209153-3", price: "79", model: "iPhone 15",
+    category: "手机壳", subCategory: "透明款", type: "channel", status: "在售",
+    colors: [{name:"透明",hex:"transparent"}],
+    material: "TPU软壳 + 抗黄变涂层",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "高透抗黄变，四角气囊防摔保护。",
+    display: "建议放于透明壳专区。"
+  },
+  {
+    sku: "K102538", price: "99", model: "iPhone 15 Pro",
+    category: "手机壳", subCategory: "皮套款", type: "self", status: "在售", featured: true,
+    colors: [{name:"棕",hex:"#8B6914"},{name:"黑",hex:"#1A1A1A"}],
+    material: "真皮 + PC内衬，手工缝线",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "真皮质感高端，磁吸翻盖保护屏幕，支撑多角度观看。",
+    display: "建议放于高端专区，搭配挂链做礼品推荐。"
+  },
+  {
+    sku: "K102596", price: "99", model: "iPhone 15 Pro Max",
+    category: "手机壳", subCategory: "皮套款", type: "self", status: "在售",
+    colors: [{name:"棕",hex:"#8B6914"},{name:"黑",hex:"#1A1A1A"}],
+    material: "真皮 + PC内衬，手工缝线",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "真皮质感高端，磁吸翻盖保护屏幕。",
+    display: "建议放于高端专区。"
+  },
+  {
+    sku: "K109032", price: "59", model: "iPhone 15 Pro",
+    category: "手机壳", subCategory: "磨砂款", type: "self", status: "在售",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"白",hex:"#F5F5F0"},{name:"蓝",hex:"#3B82F6"}],
+    material: "PC硬壳 + 磨砂涂层",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "磨砂防指纹，轻薄0.8mm，精准孔位。",
+    display: "建议放于磨砂壳专区。"
+  },
+  {
+    sku: "Z069031-1", price: "59", model: "通用",
+    category: "手机支架", subCategory: "桌面款", type: "self", status: "新品", featured: true,
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"白",hex:"#F5F5F0"}],
+    material: "铝合金 + 硅胶防滑垫，稳固不滑动",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "折叠收纳仅5mm厚，多角度调节，追剧办公两不误。",
+    display: "放置于收银台旁体验区，搭配样品让顾客亲手试折叠。"
+  },
+  {
+    sku: "Z069031-2", price: "59", model: "通用",
+    category: "手机支架", subCategory: "桌面款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"}],
+    material: "铝合金 + 硅胶防滑垫",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "折叠收纳仅5mm厚，多角度调节。",
+    display: "放置于收银台旁体验区。"
+  },
+  {
+    sku: "Z069034-1", price: "59", model: "通用",
+    category: "手机支架", subCategory: "车载款", type: "self", status: "在售",
+    colors: [{name:"黑",hex:"#1A1A1A"}],
+    material: "ABS + 磁吸模块",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "强力磁吸不脱落，兼容所有磁吸壳，旋转自由调角度。",
+    display: "建议放于配件区，搭配磁吸壳做组合销售。"
+  },
+  {
+    sku: "Z069034-2", price: "59", model: "通用",
+    category: "手机支架", subCategory: "桌面款", type: "self", status: "在售",
+    colors: [{name:"白",hex:"#F5F5F0"},{name:"粉",hex:"#F8B4C0"}],
+    material: "ABS + 防滑硅胶",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "轻巧便携，多角度调节，桌面追剧好帮手。",
+    display: "建议放于收银台旁。"
+  },
+  {
+    sku: "L609200", price: "129", model: "通用",
+    category: "手机挂链", subCategory: "珠链款", type: "self", status: "新品", featured: true,
+    colors: [{name:"樱花粉",hex:"#E8B4C0"},{name:"深蓝",hex:"#2C3E50"},{name:"金色",hex:"#C0A062"}],
+    material: "合金珠串 + 编织绳，抗氧化不变色",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "可做项链两用，时尚百搭，送礼自用都合适。",
+    display: "挂于展示架前排，搭配手机壳做\"壳+链\"搭配销售。"
+  },
+  {
+    sku: "L610200", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "编织款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"灰",hex:"#6B7280"}],
+    material: "尼龙编织绳 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "编织绳舒适耐用，可调节长度，简约百搭。",
+    display: "挂于展示架，搭配简约款手机壳。"
+  },
+  {
+    sku: "L611200", price: "129", model: "通用",
+    category: "手机挂链", subCategory: "珠链款", type: "self", status: "新品",
+    colors: [{name:"紫",hex:"#8B5CF6"},{name:"银",hex:"#C0C0C0"}],
+    material: "合金珠串 + 编织绳",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "珠串精致有质感，可做项链两用，时尚百搭。",
+    display: "挂于展示架前排。"
+  },
+  {
+    sku: "L612200", price: "129", model: "通用",
+    category: "手机挂链", subCategory: "珍珠款", type: "self", status: "新品", featured: true,
+    colors: [{name:"白",hex:"#F5F5F0"},{name:"粉",hex:"#F8B4C0"}],
+    material: "人造珍珠 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "珍珠质感优雅，适合搭配同色系手机壳，送礼佳品。",
+    display: "挂于展示架，搭配高端款手机壳。"
+  },
+  {
+    sku: "L601150", price: "129", model: "通用",
+    category: "手机挂链", subCategory: "短链款", type: "self", status: "新品",
+    colors: [{name:"金",hex:"#C0A062"},{name:"玫瑰金",hex:"#E8B4C0"}],
+    material: "不锈钢镀金 + 磁吸扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "短链设计轻便，磁吸扣一键拆装，通勤首选。",
+    display: "建议挂于收银台旁方便体验。"
+  },
+  {
+    sku: "L610148", price: "129", model: "通用",
+    category: "手机挂链", subCategory: "珠链款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"金",hex:"#C0A062"}],
+    material: "合金珠串 + 编织绳",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "珠串质感高级，耐磨不褪色，时尚百搭。",
+    display: "挂于展示架前排。"
+  },
+  {
+    sku: "L622148", price: "129", model: "通用",
+    category: "手机挂链", subCategory: "编织款", type: "self", status: "新品",
+    colors: [{name:"绿",hex:"#1A7F37"},{name:"棕",hex:"#8B6914"}],
+    material: "尼龙编织 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "复古编织风格，个性十足，耐磨耐用。",
+    display: "挂于展示架，搭配复古风格手机壳。"
+  },
+  {
+    sku: "L620051", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "简约款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"白",hex:"#F5F5F0"}],
+    material: "PU皮 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "简约皮质设计，商务休闲两相宜，轻便不累赘。",
+    display: "挂于展示架，搭配简约款手机壳。"
+  },
+  {
+    sku: "L608300", price: "59", model: "通用",
+    category: "手机挂链", subCategory: "基础款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"蓝",hex:"#3B82F6"},{name:"红",hex:"#D1242A"}],
+    material: "尼龙绳 + 塑料扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "入门级价位，颜色丰富，适合做引流款搭配销售。",
+    display: "挂于展示架下层，做入门推荐。"
+  },
+  {
+    sku: "L616501", price: "59", model: "通用",
+    category: "手机挂链", subCategory: "基础款", type: "self", status: "新品",
+    colors: [{name:"粉",hex:"#F8B4C0"},{name:"白",hex:"#F5F5F0"}],
+    material: "尼龙绳 + 塑料扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "入门级价位，少女色系，适合年轻客群。",
+    display: "挂于展示架下层。"
+  },
+  {
+    sku: "L604295", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "简约款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"金",hex:"#C0A062"}],
+    material: "不锈钢 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "金属链质感，耐磨不褪色，简约时尚。",
+    display: "挂于展示架。"
+  },
+  {
+    sku: "L621500", price: "59", model: "通用",
+    category: "手机挂链", subCategory: "基础款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"灰",hex:"#6B7280"}],
+    material: "尼龙编织 + 塑料扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "编织结实耐用，入门价位，日常通勤首选。",
+    display: "挂于展示架下层。"
+  },
+  {
+    sku: "L618300", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "编织款", type: "self", status: "新品",
+    colors: [{name:"棕",hex:"#8B6914"},{name:"黑",hex:"#1A1A1A"}],
+    material: "尼龙编织 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "编织质感好，耐磨耐用，颜色沉稳百搭。",
+    display: "挂于展示架。"
+  },
+  {
+    sku: "L609503", price: "59", model: "通用",
+    category: "手机挂链", subCategory: "基础款", type: "self", status: "新品",
+    colors: [{name:"蓝",hex:"#3B82F6"},{name:"红",hex:"#D1242A"}],
+    material: "尼龙绳 + 塑料扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "入门价位，颜色鲜艳，适合年轻客群。",
+    display: "挂于展示架下层。"
+  },
+  {
+    sku: "L610498", price: "59", model: "通用",
+    category: "手机挂链", subCategory: "简约款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"}],
+    material: "PU皮 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "皮质简约，商务风格，轻便实用。",
+    display: "挂于展示架。"
+  },
+  {
+    sku: "L602288", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "编织款", type: "self", status: "新品",
+    colors: [{name:"灰",hex:"#6B7280"},{name:"棕",hex:"#8B6914"}],
+    material: "尼龙编织 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "编织质感好，耐磨耐用，沉稳百搭。",
+    display: "挂于展示架。"
+  },
+  {
+    sku: "L607497", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "珠链款", type: "self", status: "新品",
+    colors: [{name:"银",hex:"#C0C0C0"},{name:"金",hex:"#C0A062"}],
+    material: "合金珠串 + 编织绳",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "珠串精致，金属质感，时尚百搭。",
+    display: "挂于展示架前排。"
+  },
+  {
+    sku: "L603498", price: "89", model: "通用",
+    category: "手机挂链", subCategory: "简约款", type: "self", status: "新品",
+    colors: [{name:"黑",hex:"#1A1A1A"},{name:"白",hex:"#F5F5F0"}],
+    material: "不锈钢 + 合金扣",
+    launchDate: "2026-09-25", img: "",
+    sellPoint: "金属链简约时尚，耐磨不褪色。",
+    display: "挂于展示架。"
+  }
+];
+
+// ===== State =====
+let currentCat = 'all';
+let currentStatus = 'all';
+let currentSearch = '';
+
+// ===== Render =====
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const noResults = document.getElementById('noResults');
+
+  let filtered = products.filter(p => {
+    let catMatch = currentCat === 'all' || p.category === currentCat;
+    let statusMatch = currentStatus === 'all' ||
+      (currentStatus === 'featured' ? p.featured : p.status === currentStatus);
+    let searchMatch = currentSearch === '' ||
+      p.sku.toLowerCase().includes(currentSearch.toLowerCase()) ||
+      p.model.toLowerCase().includes(currentSearch.toLowerCase()) ||
+      p.category.toLowerCase().includes(currentSearch.toLowerCase()) ||
+      p.subCategory.toLowerCase().includes(currentSearch.toLowerCase());
+    return catMatch && statusMatch && searchMatch;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+
+  noResults.style.display = 'none';
+
+  grid.innerHTML = filtered.map((p, idx) => {
+    let imgHtml = p.img
+      ? `<img src="${p.img}" alt="${p.sku}" loading="lazy">`
+      : `<span class="placeholder">📷</span>`;
+
+    let colorDots = p.colors.map(c =>
+      `<span class="color-dot" style="background:${c.hex === 'transparent' ? 'transparent' : c.hex};${c.hex === 'transparent' ? 'border:1px solid #ccc' : ''}"></span>`
+    ).join('');
+
+    let typeLabel = p.type === 'self' ? '自研' : '渠道';
+    let typeClass = p.type === 'self' ? 'self' : 'channel';
+    let statusClass = p.status === '新品' ? 'new' : p.status === '在售' ? 'on-sale' : p.status === '清仓' ? 'clearance' : 'discontinued';
+    let featuredBadge = p.featured ? '<span class="badge featured">🔥主推</span>' : '';
+
+    return `
+      <div class="product-card" onclick="openModal(${products.indexOf(p)})">
+        <div class="card-img">
+          ${imgHtml}
+          <div class="badge-row">
+            <span class="badge ${typeClass}">${typeLabel}</span>
+            <span class="badge ${statusClass}">${p.status}</span>
+          </div>
+          ${featuredBadge}
+        </div>
+        <div class="card-body">
+          <div class="card-sku">${p.sku}</div>
+          <div class="card-price"><span class="currency">¥</span>${p.price}</div>
+          <div class="card-model">${p.model}</div>
+          <div class="card-category">${p.category} · ${p.subCategory}</div>
+          <div class="card-colors">${colorDots}</div>
+          <div class="card-sellpoint">${p.sellPoint}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ===== Update Counts =====
+function updateCounts() {
+  document.getElementById('count-all').textContent = products.length;
+  document.getElementById('count-phonecase').textContent = products.filter(p => p.category === '手机壳').length;
+  document.getElementById('count-stand').textContent = products.filter(p => p.category === '手机支架').length;
+  document.getElementById('count-chain').textContent = products.filter(p => p.category === '手机挂链').length;
+  document.getElementById('count-3c').textContent = products.filter(p => p.category === '3C配件').length;
+  document.getElementById('count-film').textContent = products.filter(p => p.category === '钢化膜').length;
+}
+
+// ===== Modal =====
+function openModal(idx) {
+  const p = products[idx];
+  const modalContent = document.getElementById('modalContent');
+
+  let imgHtml = p.img
+    ? `<img src="${p.img}" alt="${p.sku}">`
+    : `<span class="placeholder">📷</span>`;
+
+  let typeLabel = p.type === 'self' ? '自研' : '渠道';
+  let typeClass = p.type === 'self' ? 'self' : 'channel';
+  let statusClass = p.status === '新品' ? 'new' : p.status === '在售' ? 'on-sale' : p.status === '清仓' ? 'clearance' : 'discontinued';
+  let modalFeaturedBadge = p.featured ? '<span class="badge featured" style="position:absolute;bottom:12px;right:12px;z-index:2;">🔥主推款</span>' : '';
+
+  let colorDots = p.colors.map(c =>
+    `<span class="color-dot" style="background:${c.hex === 'transparent' ? 'transparent' : c.hex};${c.hex === 'transparent' ? 'border:1px solid #ccc' : ''}"></span>${c.name}`
+  ).join(' ');
+
+  modalContent.innerHTML = `
+    <div class="modal-img">
+      ${imgHtml}
+      <div class="modal-badge-row">
+        <span class="badge ${typeClass}">${typeLabel}</span>
+        <span class="badge ${statusClass}">${p.status}</span>
+      </div>
+      ${modalFeaturedBadge}
+    </div>
+    <div class="modal-body">
+      <div class="modal-sku">${p.sku}</div>
+      <div class="modal-price"><span class="currency">¥</span>${p.price}</div>
+      <div class="modal-info">
+        <div class="modal-info-row">
+          <div class="modal-info-label">适配型号</div>
+          <div class="modal-info-value"><strong>${p.model}</strong></div>
+        </div>
+        <div class="modal-info-row">
+          <div class="modal-info-label">品类归属</div>
+          <div class="modal-info-value">${p.category} — ${p.subCategory}</div>
+        </div>
+        <div class="modal-info-row">
+          <div class="modal-info-label">颜色/规格</div>
+          <div class="modal-info-value">${colorDots}</div>
+        </div>
+        <div class="modal-info-row">
+          <div class="modal-info-label">材质工艺</div>
+          <div class="modal-info-value">${p.material}</div>
+        </div>
+        <div class="modal-info-row">
+          <div class="modal-info-label">上新日期</div>
+          <div class="modal-info-value">${p.launchDate}</div>
+        </div>
+        <div class="modal-info-row">
+          <div class="modal-info-label">在售状态</div>
+          <div class="modal-info-value"><strong style="color:${p.status === '在售' || p.status === '新品' ? 'var(--success)' : p.status === '清仓' ? 'var(--warning)' : 'var(--danger)'}">${p.status}</strong></div>
+        </div>
+      </div>
+      <div class="modal-sellpoint">
+        <div class="label">⭐ 产品卖点</div>
+        <div class="text">${p.sellPoint}</div>
+      </div>
+      <div class="modal-display">
+        <div class="label">📍 陈列建议</div>
+        <div class="text">${p.display}</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ===== Event Listeners =====
+document.getElementById('searchInput').addEventListener('input', function(e) {
+  currentSearch = e.target.value.trim();
+  renderProducts();
+});
+
+document.getElementById('filterTabs').addEventListener('click', function(e) {
+  let tab = e.target.closest('.filter-tab');
+  if (!tab) return;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentCat = tab.dataset.cat;
+  renderProducts();
+});
+
+document.getElementById('subFilter').addEventListener('click', function(e) {
+  let tab = e.target.closest('.sub-tab');
+  if (!tab) return;
+  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentStatus = tab.dataset.status;
+  renderProducts();
+});
+
+// ===== Init =====
+updateCounts();
+renderProducts();
+</script>
+
+</body>
+</html>
