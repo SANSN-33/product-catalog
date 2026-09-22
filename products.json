@@ -163,7 +163,7 @@
     "series": "U生",
     "subStyle": "时尚生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -178,7 +178,7 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100053.jpg"
   },
   {
@@ -192,7 +192,7 @@
     "series": "U梦",
     "subStyle": "绘梦",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -203,7 +203,7 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100068.jpg"
   },
   {
@@ -437,13 +437,13 @@
     "series": "U生",
     "subStyle": "时尚生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [],
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100180.jpg"
   },
   {
@@ -502,7 +502,7 @@
     "series": "U生",
     "subStyle": "品质生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -513,7 +513,7 @@
     "material": "PC硬壳 + 磨砂涂层 + 磁吸",
     "sellPoint": "磨砂防指纹，磁吸兼容MagSafe",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100197.jpg"
   },
   {
@@ -527,13 +527,13 @@
     "series": "U趣",
     "subStyle": "潮趣",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [],
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100200.jpg"
   },
   {
@@ -547,7 +547,7 @@
     "series": "U生",
     "subStyle": "品质生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -558,7 +558,7 @@
     "material": "PC硬壳 + 磨砂涂层 + 磁吸",
     "sellPoint": "磨砂防指纹，磁吸兼容MagSafe",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100216.jpg"
   },
   {
@@ -592,13 +592,13 @@
     "series": "U趣",
     "subStyle": "潮趣",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [],
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100221.jpg"
   },
   {
@@ -612,7 +612,7 @@
     "series": "U生",
     "subStyle": "品质生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": true,
     "colors": [
       {
@@ -623,7 +623,7 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100242.jpeg"
   },
   {
@@ -637,7 +637,7 @@
     "series": "U趣",
     "subStyle": "潮趣",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -648,7 +648,7 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100243.jpg"
   },
   {
@@ -662,7 +662,7 @@
     "series": "U生",
     "subStyle": "品质生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -673,7 +673,7 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
+    "launchDate": "2026-10-15",
     "img": "images/K100251.jpg"
   },
   {
