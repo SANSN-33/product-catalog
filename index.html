@@ -223,6 +223,26 @@
     color: #fff;
     border-color: #FF4757;
   }
+  .status-tab .update-badge {
+    display: inline-block;
+    margin-left: 4px;
+    padding: 1px 5px;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FF6B6B, #FF4757);
+    color: #fff;
+    vertical-align: middle;
+    animation: badgePulse 1.5s ease-in-out infinite;
+    line-height: 1.4;
+  }
+  @keyframes badgePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.85; }
+  }
+  .status-tab.active .update-badge {
+    animation: none;
+  }
 
   /* Price Filter */
   .price-filter {
@@ -934,6 +954,36 @@ function getTotalLikedCount() {
   return Object.keys(data).length;
 }
 
+// ===== Update Badge System =====
+const UPDATE_BADGE_KEY = 'product_catalog_update_badges';
+
+function getLastSeenCounts() {
+  try {
+    const data = localStorage.getItem(UPDATE_BADGE_KEY);
+    return data ? JSON.parse(data) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveLastSeenCounts(counts) {
+  try {
+    localStorage.setItem(UPDATE_BADGE_KEY, JSON.stringify(counts));
+  } catch (e) {}
+}
+
+function hasUpdates(statusKey, currentCount) {
+  const lastCounts = getLastSeenCounts();
+  const lastCount = lastCounts[statusKey] || 0;
+  return currentCount > lastCount;
+}
+
+function markStatusAsSeen(statusKey, currentCount) {
+  const lastCounts = getLastSeenCounts();
+  lastCounts[statusKey] = currentCount;
+  saveLastSeenCounts(lastCounts);
+}
+
 let allProducts = [];
 let filteredProducts = [];
 let displayedCount = 0;
@@ -958,6 +1008,9 @@ async function init() {
     allProducts = typeof PRODUCTS_DATA !== 'undefined' ? PRODUCTS_DATA : [];
   }
   
+  // Initialize update badge baseline on first visit
+  initUpdateBadges();
+  
   renderBrandTabs();
   updateStatusCounts();
   renderSeriesFilter();
@@ -967,6 +1020,25 @@ async function init() {
   setupInfiniteScroll();
   setupPriceFilter();
   setupCategorySwitch();
+}
+
+function initUpdateBadges() {
+  const lastCounts = getLastSeenCounts();
+  // If no data stored yet, initialize with current counts (first visit = no NEW)
+  if (Object.keys(lastCounts).length === 0) {
+    const cats = ['手机壳', '手机支架', '手机挂链'];
+    const initialCounts = {};
+    cats.forEach(cat => {
+      const catProducts = allProducts.filter(p => p.category === cat);
+      initialCounts[cat + ':all'] = catProducts.length;
+      initialCounts[cat + ':featured'] = catProducts.filter(p => p.featured).length;
+      initialCounts[cat + ':新品'] = catProducts.filter(p => p.isNew).length;
+      initialCounts[cat + ':预售'] = catProducts.filter(p => p.status === '预售').length;
+      initialCounts[cat + ':在售'] = catProducts.filter(p => p.status === '在售').length;
+      initialCounts[cat + ':清仓'] = catProducts.filter(p => p.status === '清仓').length;
+    });
+    saveLastSeenCounts(initialCounts);
+  }
 }
 
 // ===== Render Brand Tabs =====
@@ -1352,6 +1424,26 @@ document.getElementById('statusFilter').addEventListener('click', function(e) {
   document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
   tab.classList.add('active');
   currentStatus = tab.dataset.status;
+  
+  // Mark this status as seen (remove the NEW badge)
+  const catProducts = allProducts.filter(p => p.category === currentCategory);
+  let currentCount = 0;
+  if (currentStatus === 'all') {
+    currentCount = catProducts.length;
+  } else if (currentStatus === 'featured') {
+    currentCount = catProducts.filter(p => p.featured).length;
+  } else if (currentStatus === '新品') {
+    currentCount = catProducts.filter(p => p.isNew).length;
+  } else {
+    currentCount = catProducts.filter(p => p.status === currentStatus).length;
+  }
+  const badgeKey = currentCategory + ':' + currentStatus;
+  markStatusAsSeen(badgeKey, currentCount);
+  
+  // Remove badge from clicked tab immediately
+  const badge = tab.querySelector('.update-badge');
+  if (badge) badge.remove();
+  
   applyFilters();
 });
 
@@ -1391,8 +1483,12 @@ function updateStatusCounts() {
   document.querySelectorAll('.status-tab').forEach(tab => {
     const s = tab.dataset.status;
     const c = counts[s] || 0;
-    const label = tab.textContent.replace(/\s*\(\d+\)/, '');
-    tab.textContent = `${label} (${c})`;
+    const label = tab.textContent.replace(/\s*\(\d+\)/, '').replace(/NEW/g, '').trim();
+    // Check for updates using category+status key
+    const badgeKey = currentCategory + ':' + s;
+    const showBadge = hasUpdates(badgeKey, c) && s !== 'all' && s !== '在售';
+    const badgeHtml = showBadge ? '<span class="update-badge">NEW</span>' : '';
+    tab.innerHTML = `${label} (${c})${badgeHtml}`;
   });
 }
 
