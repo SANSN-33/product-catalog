@@ -10536,7 +10536,8 @@
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
     "launchDate": "2026-10-10",
     "img": "images/K108282.png",
-    "isNew": false
+    "isNew": false,
+    "matchSku": "Z059032"
   },
   {
     "sku": "K108390",
@@ -19448,5 +19449,32 @@
     "display": "",
     "launchDate": "2026-10-10",
     "img": "images/PRESHOP-RESERVE-3.png"
+  },
+  {
+    "sku": "Z059032",
+    "name": "「U趣·童趣」可爱磁吸心形小熊支架",
+    "price": "59",
+    "model": "通用",
+    "phoneBrand": "通用",
+    "category": "手机支架",
+    "subCategory": "磁吸款",
+    "series": "U趣",
+    "subStyle": "童趣",
+    "type": "self",
+    "status": "在售",
+    "featured": false,
+    "colors": [
+      {
+        "name": "粉",
+        "hex": "#F8B4C0"
+      }
+    ],
+    "material": "硅胶+磁吸模块",
+    "sellPoint": "磁吸兼容MagSafe，心形小熊造型，可爱实用",
+    "display": "建议与K108282手机壳搭配陈列，突出官搭组合效果",
+    "launchDate": "2026-09-23",
+    "img": "images/Z059032.png",
+    "matchSku": "K108282",
+    "isNew": true
   }
 ]
