@@ -872,7 +872,7 @@
     "series": "U生",
     "subStyle": "时尚生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -887,8 +887,9 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
-    "img": "images/K100307.png"
+    "launchDate": "2026-10-10",
+    "img": "images/K100307.png",
+    "isNew": false
   },
   {
     "sku": "K100314",
@@ -901,14 +902,15 @@
     "series": "U生",
     "subStyle": "时尚生活",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [],
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
-    "img": "images/K100314.jpg"
+    "launchDate": "2026-10-10",
+    "img": "images/K100314.png",
+    "isNew": false
   },
   {
     "sku": "K100316",
@@ -4683,7 +4685,7 @@
     "series": "U梦",
     "subStyle": "见梦",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -4694,8 +4696,9 @@
     "material": "PC/TPU",
     "sellPoint": "粉色草莓乐园",
     "display": "建议放置于新品推荐区，突出展示。",
-    "launchDate": "",
-    "img": "images/K103299.jpg"
+    "launchDate": "2026-10-10",
+    "img": "images/K103299.png",
+    "isNew": false
   },
   {
     "sku": "K103310",
@@ -10491,7 +10494,7 @@
   {
     "sku": "K108281",
     "name": "「U趣·童趣」粉色磁吸花卉小熊",
-    "price": "79",
+    "price": "59",
     "model": "苹果系列",
     "phoneBrand": "苹果",
     "category": "手机壳",
@@ -10499,7 +10502,7 @@
     "series": "U趣",
     "subStyle": "童趣",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -10510,14 +10513,14 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "2026-09-05",
+    "launchDate": "2026-10-10",
     "img": "images/K108281.png",
-    "isNew": true
+    "isNew": false
   },
   {
     "sku": "K108282",
     "name": "「U趣·童趣」夏日磁吸碎花卡通",
-    "price": "59",
+    "price": "79",
     "model": "苹果系列",
     "phoneBrand": "苹果",
     "category": "手机壳",
@@ -10525,14 +10528,15 @@
     "series": "U趣",
     "subStyle": "童趣",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [],
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
-    "img": ""
+    "launchDate": "2026-10-10",
+    "img": "images/K108282.png",
+    "isNew": false
   },
   {
     "sku": "K108390",
@@ -11343,7 +11347,7 @@
     "series": "U趣",
     "subStyle": "童趣",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -11354,8 +11358,9 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
-    "img": ""
+    "launchDate": "2026-10-10",
+    "img": "images/K109211.png",
+    "isNew": false
   },
   {
     "sku": "K109217",
@@ -16151,7 +16156,7 @@
     "series": "U花",
     "subStyle": "拾花",
     "type": "self",
-    "status": "在售",
+    "status": "预售",
     "featured": false,
     "colors": [
       {
@@ -16166,8 +16171,9 @@
     "material": "PC/TPU + 磁吸模块",
     "sellPoint": "磁吸兼容MagSafe，充电便捷",
     "display": "建议放置于磁吸展位，搭配磁吸支架做组合展示。",
-    "launchDate": "",
-    "img": "images/K203332.jpg"
+    "launchDate": "2026-10-10",
+    "img": "images/K203332.png",
+    "isNew": false
   },
   {
     "sku": "K203354",
@@ -27337,5 +27343,110 @@
     "display": "",
     "launchDate": "2026-10-10",
     "img": "images/L614150.png"
+  },
+  {
+    "sku": "PRESHOP-RESERVE-1",
+    "name": "手机壳 预售预留款",
+    "price": "79",
+    "model": "苹果系列",
+    "phoneBrand": "苹果",
+    "category": "手机壳",
+    "subCategory": "预售款",
+    "series": "",
+    "subStyle": "",
+    "type": "self",
+    "status": "预售",
+    "isNew": false,
+    "featured": false,
+    "colors": [],
+    "material": "",
+    "sellPoint": "",
+    "display": "",
+    "launchDate": "2026-10-10",
+    "img": "images/PRESHOP-RESERVE-1.png"
+  },
+  {
+    "sku": "PRESHOP-RESERVE-2",
+    "name": "手机壳 预售预留款",
+    "price": "79",
+    "model": "苹果系列",
+    "phoneBrand": "苹果",
+    "category": "手机壳",
+    "subCategory": "预售款",
+    "series": "",
+    "subStyle": "",
+    "type": "self",
+    "status": "预售",
+    "isNew": false,
+    "featured": false,
+    "colors": [],
+    "material": "",
+    "sellPoint": "",
+    "display": "",
+    "launchDate": "2026-10-10",
+    "img": "images/PRESHOP-RESERVE-2.png"
+  },
+  {
+    "sku": "Z069033",
+    "name": "手机支架 Z069033",
+    "price": "59",
+    "model": "通用",
+    "phoneBrand": "通用",
+    "category": "手机支架",
+    "subCategory": "",
+    "series": "",
+    "subStyle": "",
+    "type": "self",
+    "status": "预售",
+    "isNew": false,
+    "featured": false,
+    "colors": [],
+    "material": "",
+    "sellPoint": "",
+    "display": "",
+    "launchDate": "2026-10-10",
+    "img": "images/Z069033.png"
+  },
+  {
+    "sku": "Z069032",
+    "name": "手机支架 Z069032",
+    "price": "59",
+    "model": "通用",
+    "phoneBrand": "通用",
+    "category": "手机支架",
+    "subCategory": "",
+    "series": "",
+    "subStyle": "",
+    "type": "self",
+    "status": "预售",
+    "isNew": false,
+    "featured": false,
+    "colors": [],
+    "material": "",
+    "sellPoint": "",
+    "display": "",
+    "launchDate": "2026-10-10",
+    "img": "images/Z069032.png"
+  },
+  {
+    "sku": "PRESHOP-RESERVE-3",
+    "name": "手机壳 预售预留款",
+    "price": "59",
+    "model": "苹果系列",
+    "phoneBrand": "苹果",
+    "category": "手机壳",
+    "subCategory": "预售款",
+    "series": "",
+    "subStyle": "",
+    "type": "self",
+    "status": "预售",
+    "isNew": false,
+    "featured": false,
+    "colors": [],
+    "material": "",
+    "sellPoint": "",
+    "display": "",
+    "launchDate": "2026-10-10",
+    "img": "images/PRESHOP-RESERVE-3.png"
   }
 ]
