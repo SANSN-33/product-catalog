@@ -1036,6 +1036,8 @@ function initUpdateBadges() {
       initialCounts[cat + ':在售'] = catProducts.filter(p => p.status === '在售').length;
       initialCounts[cat + ':清仓'] = catProducts.filter(p => p.status === '清仓').length;
     });
+    // 全局新品计数（跨品类）
+    initialCounts['all:新品'] = allProducts.filter(p => p.isNew).length;
     saveLastSeenCounts(initialCounts);
   }
 }
@@ -1044,14 +1046,17 @@ function initUpdateBadges() {
 function renderBrandTabs() {
   const brands = {};
   allProducts.forEach(p => {
-    if (p.category !== currentCategory) return;
+    // 新品状态下跨品类统计品牌，其他状态按当前品类
+    if (currentStatus !== '新品' && p.category !== currentCategory) return;
     brands[p.phoneBrand] = (brands[p.phoneBrand] || 0) + 1;
   });
   
   const sortedBrands = Object.entries(brands).sort((a, b) => b[1] - a[1]);
-  const catTotal = allProducts.filter(p => p.category === currentCategory).length;
+  const totalCount = currentStatus === '新品'
+    ? allProducts.filter(p => p.isNew).length
+    : allProducts.filter(p => p.category === currentCategory).length;
   
-  let html = `<div class="brand-tab active" data-brand="all">全部 <span class="count">${catTotal}</span></div>`;
+  let html = `<div class="brand-tab active" data-brand="all">全部 <span class="count">${totalCount}</span></div>`;
   sortedBrands.forEach(([brand, count]) => {
     html += `<div class="brand-tab" data-brand="${brand}">${brand} <span class="count">${count}</span></div>`;
   });
@@ -1073,7 +1078,7 @@ function renderBrandTabs() {
 function renderSeriesFilter() {
   const series = {};
   allProducts.forEach(p => {
-    if (p.category !== currentCategory) return;
+    if (currentStatus !== '新品' && p.category !== currentCategory) return;
     if (p.series && (currentBrand === 'all' || p.phoneBrand === currentBrand)) {
       series[p.series] = (series[p.series] || 0) + 1;
     }
@@ -1102,7 +1107,8 @@ function renderSeriesFilter() {
 // ===== Apply Filters =====
 function applyFilters() {
   filteredProducts = allProducts.filter(p => {
-    let categoryMatch = p.category === currentCategory;
+    // 新品状态下跨品类显示全部新品，其他状态按当前品类筛选
+    let categoryMatch = currentStatus === '新品' ? true : p.category === currentCategory;
     let brandMatch = currentBrand === 'all' || p.phoneBrand === currentBrand;
     let seriesMatch = currentSeries === 'all' || p.series === currentSeries;
     let statusMatch = currentStatus === 'all' ||
@@ -1135,6 +1141,7 @@ function applyFilters() {
   document.getElementById('productGrid').innerHTML = '';
   document.getElementById('noResults').style.display = filteredProducts.length === 0 ? 'block' : 'none';
   
+  updateHeaderCount();
   loadMore();
 }
 
@@ -1425,24 +1432,29 @@ document.getElementById('statusFilter').addEventListener('click', function(e) {
   currentStatus = tab.dataset.status;
   
   // Mark this status as seen (remove the NEW badge)
-  const catProducts = allProducts.filter(p => p.category === currentCategory);
   let currentCount = 0;
   if (currentStatus === 'all') {
-    currentCount = catProducts.length;
+    currentCount = allProducts.filter(p => p.category === currentCategory).length;
   } else if (currentStatus === 'featured') {
-    currentCount = catProducts.filter(p => p.featured).length;
+    currentCount = allProducts.filter(p => p.category === currentCategory && p.featured).length;
   } else if (currentStatus === '新品') {
-    currentCount = catProducts.filter(p => p.isNew).length;
+    currentCount = allProducts.filter(p => p.isNew).length;
   } else {
-    currentCount = catProducts.filter(p => p.status === currentStatus).length;
+    currentCount = allProducts.filter(p => p.category === currentCategory && p.status === currentStatus).length;
   }
-  const badgeKey = currentCategory + ':' + currentStatus;
+  const badgeKey = currentStatus === '新品' ? 'all:新品' : currentCategory + ':' + currentStatus;
   markStatusAsSeen(badgeKey, currentCount);
   
   // Remove badge from clicked tab immediately
   const badge = tab.querySelector('.update-badge');
   if (badge) badge.remove();
   
+  // 切换到新品状态时重新渲染品牌和系列筛选（跨品类）
+  if (currentStatus === '新品') {
+    renderBrandTabs();
+    renderSeriesFilter();
+  }
+  updateHeaderCount();
   applyFilters();
 });
 
@@ -1464,17 +1476,22 @@ function setupInfiniteScroll() {
 
 // ===== Update Header Count =====
 function updateHeaderCount() {
-  const catCount = allProducts.filter(p => p.category === currentCategory).length;
-  document.getElementById('headerCount').textContent = `共 ${catCount} 款`;
+  if (currentStatus === '新品') {
+    document.getElementById('headerCount').textContent = `共 ${filteredProducts.length} 款新品`;
+  } else {
+    const catCount = allProducts.filter(p => p.category === currentCategory).length;
+    document.getElementById('headerCount').textContent = `共 ${catCount} 款`;
+  }
 }
 
 // ===== Update Status Tab Counts =====
 function updateStatusCounts() {
   const catProducts = allProducts.filter(p => p.category === currentCategory);
+  const allNewCount = allProducts.filter(p => p.isNew).length;
   const counts = {
     all: catProducts.length,
     featured: catProducts.filter(p => p.featured).length,
-    '新品': catProducts.filter(p => p.isNew).length,
+    '新品': allNewCount,
     '预售': catProducts.filter(p => p.status === '预售').length,
     '在售': catProducts.filter(p => p.status === '在售').length,
     '清仓': catProducts.filter(p => p.status === '清仓').length
@@ -1483,8 +1500,8 @@ function updateStatusCounts() {
     const s = tab.dataset.status;
     const c = counts[s] || 0;
     const label = tab.textContent.replace(/\s*\(\d+\)/, '').replace(/NEW/g, '').trim();
-    // Check for updates using category+status key
-    const badgeKey = currentCategory + ':' + s;
+    // 新品用全局key，其他用品类+状态key
+    const badgeKey = s === '新品' ? 'all:新品' : currentCategory + ':' + s;
     const showBadge = hasUpdates(badgeKey, c) && s !== 'all' && s !== '在售';
     const badgeHtml = showBadge ? '<span class="update-badge">NEW</span>' : '';
     tab.innerHTML = `${label} (${c})${badgeHtml}`;
