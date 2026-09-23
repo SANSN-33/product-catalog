@@ -1388,7 +1388,30 @@ function openModal(p) {
   let modalTypeTag = p.type === 'channel'
     ? `<span class="type-tag channel" style="padding:4px 10px;font-size:12px;">渠道 · ${p.series}</span>`
     : `<span class="type-tag self" style="padding:4px 10px;font-size:12px;">${p.series}</span>`;
-  
+
+  // Pre-compute match section HTML
+  let matchHtml = '';
+  if (p.matchSku) {
+    var matched = PRODUCTS_DATA.find(x => x.sku === p.matchSku);
+    if (matched) {
+      var matchThumb = matched.img
+        ? '<img src="' + matched.img + '" alt="' + matched.sku + '">'
+        : '<div class="placeholder-icon">📱</div>';
+      matchHtml = '<div class="modal-match">' +
+        '<div class="modal-match-title">🔗 官方搭配</div>' +
+        '<div class="modal-match-card" data-match-sku="' + matched.sku + '">' +
+          '<div class="modal-match-thumb">' + matchThumb + '</div>' +
+          '<div class="modal-match-info">' +
+            '<div class="modal-match-sku">' + matched.sku + '</div>' +
+            '<div class="modal-match-name">' + matched.name + '</div>' +
+            '<div class="modal-match-price">¥' + matched.price + '</div>' +
+          '</div>' +
+          '<div class="modal-match-arrow">›</div>' +
+        '</div>' +
+      '</div>';
+    }
+  }
+
   modalContent.innerHTML = `
     <div class="modal-img">
       ${imgHtml}
@@ -1443,55 +1466,26 @@ function openModal(p) {
         <div class="label">📍 陈列建议</div>
         <div class="text">${p.display}</div>
       </div>
+      ${matchHtml}
     </div>
   `;
 
   document.getElementById('modalOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
 
-  // Add match section after modal is shown (prevent render errors from blocking modal)
-  if (p.matchSku) {
-    try {
-      const matched = PRODUCTS_DATA.find(x => x.sku === p.matchSku);
+  // Match card click handler
+  const matchCard = document.querySelector('.modal-match-card');
+  if (matchCard) {
+    matchCard.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const matchSku = this.getAttribute('data-match-sku');
+      const matched = PRODUCTS_DATA.find(x => x.sku === matchSku);
       if (matched) {
-        let thumbHtml = matched.img
-          ? `<img src="${matched.img}" alt="${matched.sku}">`
-          : `<div class="placeholder-icon">📱</div>`;
-        const matchHtml = `
-          <div class="modal-match">
-            <div class="modal-match-title">🔗 官方搭配</div>
-            <div class="modal-match-card" data-match-sku="${matched.sku}">
-              <div class="modal-match-thumb">${thumbHtml}</div>
-              <div class="modal-match-info">
-                <div class="modal-match-sku">${matched.sku}</div>
-                <div class="modal-match-name">${matched.name}</div>
-                <div class="modal-match-price">¥${matched.price}</div>
-              </div>
-              <div class="modal-match-arrow">›</div>
-            </div>
-          </div>
-        `;
-        const modalBody = modalContent.querySelector('.modal-body');
-        if (modalBody) {
-          modalBody.insertAdjacentHTML('beforeend', matchHtml);
-          const matchCard = modalBody.querySelector('.modal-match-card');
-          if (matchCard) {
-            matchCard.addEventListener('click', function(e) {
-              e.stopPropagation();
-              const matchSku = this.getAttribute('data-match-sku');
-              const matchedProduct = PRODUCTS_DATA.find(x => x.sku === matchSku);
-              if (matchedProduct) {
-                document.getElementById('modalOverlay').classList.remove('show');
-                document.body.style.overflow = '';
-                setTimeout(() => openModal(matchedProduct), 200);
-              }
-            });
-          }
-        }
+        document.getElementById('modalOverlay').classList.remove('show');
+        document.body.style.overflow = '';
+        setTimeout(() => openModal(matched), 200);
       }
-    } catch(e) {
-      console.log('Match section error:', e);
-    }
+    });
   }
 
   // Modal heart button click handler
